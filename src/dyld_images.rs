@@ -4,7 +4,7 @@
 
 use core::ffi::{c_char, c_void};
 
-use super::{loader::mach_header, port::mach_port_t};
+use crate::{loader::mach_header, port::mach_port_t};
 
 pub const DYLD_AOT_IMAGE_KEY_SIZE: u32 = 32;
 pub const DYLD_MAX_PROCESS_INFO_NOTIFY_COUNT: u32 = 8;
@@ -47,7 +47,7 @@ pub struct dyld_aot_shared_cache_info {
     pub cacheUUID: [u8; 16usize],
 }
 
-pub type dyld_image_notifier = ::core::option::Option<
+pub type dyld_image_notifier = Option<
     unsafe extern "C" fn(mode: dyld_image_mode, infoCount: u32, info: *const dyld_image_info),
 >;
 

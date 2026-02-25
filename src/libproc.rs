@@ -2,7 +2,7 @@
 
 use core::ffi::{c_char, c_int, c_uint, c_ulong, c_void};
 
-use super::{
+use crate::{
     mach_types::{fsid_t, gid_t, off_t, pid_t, uid_t},
     vm_types::{integer_t, mach_vm_address_t, mach_vm_size_t},
 };
@@ -141,8 +141,8 @@ pub struct vinfo_stat {
 #[derive(Debug, Copy, Clone)]
 pub struct vnode_info {
     pub vi_stat: vinfo_stat,
-    pub vi_type: ::core::ffi::c_int,
-    pub vi_pad: ::core::ffi::c_int,
+    pub vi_type: c_int,
+    pub vi_pad: c_int,
     pub vi_fsid: fsid_t,
 }
 

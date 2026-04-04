@@ -1,7 +1,6 @@
 //! This module corresponds to `mach/i386/_structs.h` and `mach/arm/_structs.h`.
 
 use crate::message::mach_msg_type_number_t;
-use core::ffi::c_int;
 
 #[cfg(target_arch = "aarch64")]
 #[repr(C)]
@@ -23,7 +22,49 @@ impl arm_thread_state64_t {
     }
 
     pub fn count() -> mach_msg_type_number_t {
-        (core::mem::size_of::<Self>() / core::mem::size_of::<c_int>()) as mach_msg_type_number_t
+        (size_of::<Self>() / size_of::<u32>()) as mach_msg_type_number_t
+    }
+}
+
+#[cfg(target_arch = "aarch64")]
+#[repr(C)]
+#[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
+pub struct arm_exception_state64_t {
+    pub __far: u64,
+    pub __esr: u32,
+    pub __exception: u32,
+}
+
+#[cfg(target_arch = "aarch64")]
+impl arm_exception_state64_t {
+    pub fn new() -> Self {
+        Default::default()
+    }
+
+    pub fn count() -> mach_msg_type_number_t {
+        (size_of::<Self>() / size_of::<u32>()) as mach_msg_type_number_t
+    }
+}
+
+#[cfg(target_arch = "aarch64")]
+#[repr(C)]
+#[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
+pub struct arm_debug_state64_t {
+    pub __bvr: [u64; 16usize],
+    pub __bcr: [u64; 16usize],
+    pub __wvr: [u64; 16usize],
+    pub __wcr: [u64; 16usize],
+    pub __mdscr_el1: u64,
+}
+
+#[cfg(target_arch = "aarch64")]
+impl arm_debug_state64_t {
+    pub fn new() -> Self {
+        Default::default()
+    }
+
+    pub fn count() -> mach_msg_type_number_t {
+        (size_of::<Self>() / size_of::<u32>()) as mach_msg_type_number_t
     }
 }
 

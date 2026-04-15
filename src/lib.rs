@@ -27,6 +27,7 @@ pub mod dyld_images;
 pub mod dyld_kernel;
 pub mod error;
 pub mod exc;
+pub mod exception;
 pub mod exception_types;
 pub mod kern_return;
 pub mod libproc;
